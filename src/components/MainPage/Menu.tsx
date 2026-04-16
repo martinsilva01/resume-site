@@ -3,9 +3,12 @@ import { useFrame } from '@react-three/fiber'
 import { useRef, useState, useMemo } from 'react'
 import { RoundedBoxGeometry } from '@react-three/drei'
 import { type ThreeElements } from '@react-three/fiber'
+import { useAsciiContext } from '../../context/asciiContext.tsx'
+import { useCameraContext } from '../../context/cameraContext.tsx'
+import type { SceneName } from '../../context/cameraContext.tsx'
 
 type MenuItemProps = {
-	text: string
+	text: SceneName 
 	image: string
 	color: string
 } & ThreeElements['group']
@@ -42,7 +45,28 @@ function createTextTexture(text: string) {
 
   return texture;
 }
-function MenuItem({text, image, color, ...props}: MenuItemProps) {
+function MenuItem({text, color, ...props}: MenuItemProps) {
+	const { ascii, toggleAscii } = useAsciiContext();
+	const { camera, position, setCameraLocation } = useCameraContext();
+	const locationMap = {
+		Main: 
+			{ position: new THREE.Vector3(0.1, 0, 3),
+				target:  new THREE.Vector3(0.1, 0, 3),
+			},
+		Resume: 
+			{ position: new THREE.Vector3(0.1,0,5),
+				target:  new THREE.Vector3(0.1, 0, 3),
+			},
+		Projects: 
+			{ position: new THREE.Vector3(0.1,0,3),
+				target:  new THREE.Vector3(0.1,0,3),
+			},
+		Github: 
+			{ position: new THREE.Vector3(0.1,0,3),
+				target:  new THREE.Vector3(0.1,0,3),
+			},
+	}	
+
 	const texture = useMemo(() => createTextTexture(text), [text])
 	const ref = useRef<THREE.Group | null>(null)
 	const [hover, setHover] = useState(false);
@@ -63,6 +87,16 @@ function MenuItem({text, image, color, ...props}: MenuItemProps) {
 			onPointerLeave={(e) => {
 				e.stopPropagation()
 				setHover(false)
+			}}
+			onClick={(e) => {
+				e.stopPropagation()
+				const distance = camera.position.distanceTo(locationMap[text].position);
+				if (!ascii && distance > .3) {
+					toggleAscii();
+				}
+
+				setCameraLocation(text);
+
 			}}
 			{...props}>
 			<mesh scale={.25}>
