@@ -48,24 +48,30 @@ function createTextTexture(text: string) {
 function MenuItem({text, color, ...props}: MenuItemProps) {
 	const { ascii, toggleAscii } = useAsciiContext();
 	const { camera, position, setCameraLocation } = useCameraContext();
+
 	const locationMap = {
-		Main: 
-			{ position: new THREE.Vector3(0.1, 0, 3),
-				target:  new THREE.Vector3(0.1, 0, 3),
-			},
-		Resume: 
-			{ position: new THREE.Vector3(0.1,0,5),
-				target:  new THREE.Vector3(0.1, 0, 3),
-			},
-		Projects: 
-			{ position: new THREE.Vector3(0.1,0,3),
-				target:  new THREE.Vector3(0.1,0,3),
-			},
-		Github: 
-			{ position: new THREE.Vector3(0.1,0,3),
-				target:  new THREE.Vector3(0.1,0,3),
-			},
-	}	
+	Main: 
+		{ position: new THREE.Vector3(0.1, 0, 3),
+			target:  new THREE.Vector3(0.1, 0, 0),
+			upVector: new THREE.Vector3(0, 1, 0)
+		},
+	Resume: 
+		{ position: new THREE.Vector3(-4,0,-2.5),
+			target:  new THREE.Vector3(-8, 0, -2.5),
+			upVector: new THREE.Vector3(0, 0, 1)
+		},
+	Projects: 
+		{ position: new THREE.Vector3(0.1,0,10),
+			target:  new THREE.Vector3(0.1,0,0),
+			upVector: new THREE.Vector3(0, 1, 0)
+
+		},
+	Github: 
+		{ position: new THREE.Vector3(0.1,0,3),
+			target:  new THREE.Vector3(0.1,0,0),
+			upVector: new THREE.Vector3(0, 1, 0)
+		},
+}
 
 	const texture = useMemo(() => createTextTexture(text), [text])
 	const ref = useRef<THREE.Group | null>(null)
