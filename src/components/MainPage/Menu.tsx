@@ -5,6 +5,7 @@ import { RoundedBoxGeometry } from '@react-three/drei'
 import { type ThreeElements } from '@react-three/fiber'
 import { useAsciiContext } from '../../context/asciiContext.tsx'
 import { useCameraContext } from '../../context/cameraContext.tsx'
+import { Select } from '@react-three/postprocessing'
 import type { SceneName } from '../../context/cameraContext.tsx'
 
 type MenuItemProps = {
@@ -47,7 +48,7 @@ function createTextTexture(text: string) {
 }
 function MenuItem({text, color, ...props}: MenuItemProps) {
 	const { ascii, toggleAscii } = useAsciiContext();
-	const { camera, position, setCameraLocation } = useCameraContext();
+	const { camera, setCameraLocation } = useCameraContext();
 
 	const locationMap = {
 	Main: 
@@ -106,7 +107,7 @@ function MenuItem({text, color, ...props}: MenuItemProps) {
 			}}
 			{...props}>
 			<mesh scale={.25}>
-				<meshBasicMaterial transparent map={texture} side={THREE.DoubleSide} />
+				<meshBasicMaterial transparent map={texture} color={[4, 4, 4]} side={THREE.DoubleSide} />
 				<planeGeometry args={[5, 1]}/>
 			</mesh>
 			<mesh 
@@ -122,11 +123,13 @@ function MenuItem({text, color, ...props}: MenuItemProps) {
 export default function Menu() {
 	const ref = useRef<THREE.Group | null>(null)
 	return (
-	<group ref={ref} position={[-.7, 0, 0]} rotation={[0, .75, 0]}>
-		<MenuItem text="Resume" image="hello" color="#FF88FF" position={[0, .5, 0]} />
-		<MenuItem text="Projects" image="hello" color="#FF88FF" position={[0, 0, 0]} />
-		<MenuItem text="Github" image="hello" color="#FF88FF" position={[0, -.5, 0]} />
-	</group>
+	<Select enabled={false} >
+		<group ref={ref} position={[-.7, 0, 0]} rotation={[0, .75, 0]}>
+			<MenuItem text="Resume" image="hello" color="#FF88FF" position={[0, .5, 0]} />
+			<MenuItem text="Projects" image="hello" color="#FF88FF" position={[0, 0, 0]} />
+			<MenuItem text="Github" image="hello" color="#FF88FF" position={[0, -.5, 0]} />
+		</group>
+	</Select>
 )
 
 }

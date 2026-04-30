@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import { type ThreeElements } from '@react-three/fiber'
 import { Trail } from '@react-three/drei'
-
+import { Select } from '@react-three/postprocessing' 
 type OrbitProps = {
 	sphereCount: number
 	radius: number
@@ -50,13 +50,15 @@ function Orbit({ sphereCount, radius, scale, color, speed, ...props }: OrbitProp
 		})
   })
 	return (
-		<group ref={ref}  {...props}>
-			{Array.from({length: sphereCount},(_, i) => (
-				<Trail key={i} width={1} length={3} color={color} attenuation={(t) => t * t}>
-					<Sphere position={[radius * Math.cos(i * offset), radius * Math.sin(i * offset), 0]} scale={scale} color={color}/>		
-				</Trail>
-			))}			
-		</group>
+		<Select>
+			<group ref={ref}  {...props}>
+				{Array.from({length: sphereCount},(_, i) => (
+					<Trail key={i} width={1} length={3} color={color} attenuation={(t) => t * t}>
+						<Sphere position={[radius * Math.cos(i * offset), radius * Math.sin(i * offset), 0]} scale={scale} color={color}/>		
+					</Trail>
+				))}			
+			</group>
+		</Select>
 	)
 }
 

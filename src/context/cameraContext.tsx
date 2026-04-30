@@ -1,12 +1,13 @@
-import { useState, useContext, createContext } from 'react'
+import { useState, useEffect, useContext, createContext } from 'react'
 import { useMemo } from 'react'
 import * as THREE from 'three'
 
 type CameraContextType = {
+	scene: SceneName
 	camera: THREE.Camera
-	position: THREE.Vector3
-	target: THREE.Vector3
-	upVector: THREE.Vector3
+	position: number[]
+	target: number[]
+	up: number[]
 	setCameraLocation: (sceneName: SceneName) => void;
 }
 
@@ -18,59 +19,60 @@ interface CameraProviderProps {
 
 const locationMap = {
 	Main: 
-		{ position: new THREE.Vector3(0.1, 0, 3),
-			target:  new THREE.Vector3(0.1, 0, 0),
-			upVector: new THREE.Vector3(0, 1, 0)
+		{ position: [0.1, 0, 3],
+			target: [0.1, 0, 0],
+			up: [0, 1, 0]
 		},
 	Resume: 
-		{ position: new THREE.Vector3(-4,0,-2.5),
-			target:  new THREE.Vector3(0, 0, -2.5),
-			upVector: new THREE.Vector3(0, 0, -1)
+		{ position: [-4,0,-2.5],
+			target:  [0, 0, -2.5],
+			up: [0, 0, -1]
 		},
 	Projects: 
-		{ position: new THREE.Vector3(0.1,0,10),
-			target:  new THREE.Vector3(0.1,0,0),
-			upVector: new THREE.Vector3(0, 1, 0)
+		{ position: [0.1,2,3],
+			target:  [0.1,0,3],
+			up: [0, 1, 0]
 
 		},
 	Github: 
-		{ position: new THREE.Vector3(0.1,0,3),
-			target:  new THREE.Vector3(0.1,0,0),
-			upVector: new THREE.Vector3(0, 1, 0)
+		{ position: [0.1,0,3],
+			target:  [0.1,0,0],
+			up: [0, 1, 0]
 		},
 }
 
 const CameraContext = createContext<CameraContextType | null>(null);
 
 export function CameraProvider ({ children }: CameraProviderProps) {
+	const [scene, setScene] = useState<SceneName>("Main");
 	const [position, setPosition] = useState(locationMap.Main.position);
 	const [target, setTarget] = useState(locationMap.Main.target);
-	const [upVector, setUpVector] = useState(new THREE.Vector3(0, 1, 0))
+	const [up, setUp] = useState(locationMap.Main.up);
 	const camera = useMemo(() => {
 		const cam = new THREE.PerspectiveCamera(40)
-		cam.position.set(locationMap.Main.position.x, locationMap.Main.position.y, locationMap.Main.position.z);
-		cam.lookAt(locationMap.Main.target);
 		return cam;
 	}, []);
-
+	
 
 
 	const setCameraLocation = (sceneName: SceneName) => {
 		if (locationMap[sceneName]) {
 			const newPos = locationMap[sceneName].position
 			const newTarget = locationMap[sceneName].target
-			const newUp = locationMap[sceneName].upVector
+			const newUp = locationMap[sceneName].up
+			setScene(sceneName)
 			setPosition(newPos)
 			setTarget(newTarget)
-			setUpVector(newUp)
+			setUp(newUp)
 		}
 	}
 	
 	const contextValue: CameraContextType = {
+		scene,
 		camera,
 		position,
 		target,
-		upVector,
+		up,
 		setCameraLocation
 	}
 		
