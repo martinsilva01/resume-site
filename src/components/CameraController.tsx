@@ -6,7 +6,7 @@ import { useMemo } from 'react'
 
 export default function CameraController() {
 	const { camera, position, target, up } = useCameraContext();
-	const { ascii, toggleAscii } = useAsciiContext();
+	const { ascii, setAscii } = useAsciiContext();
 	const targetMat = useMemo(() => new THREE.Matrix4(), []);
 	const targetQuat = useMemo(() => new THREE.Quaternion(), []);
 	const positionVector = useMemo(() => new THREE.Vector3(), [])
@@ -25,8 +25,11 @@ export default function CameraController() {
 		
 
 		const distance = camera.position.distanceTo(positionVector);
-		if (ascii && distance < .3) {
-			toggleAscii();
+		if (!ascii && distance > .3) {
+			setAscii(true);
+			setTimeout(() => {
+				setAscii(false);
+			}, 1200);
 		}
 	})
 	return (

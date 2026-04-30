@@ -24,13 +24,20 @@
 	}	
 }
 	.project-header {
+		width: 100%;
+		display: flex;
+		justify-content: center;
 }
 
+.project-header > :first-child {
+	margin-right: auto;
+}
 .project-header ul {
 	display: flex;
 	list-style-type: none;
 	padding: 0;
 	justify-content: center;
+	margin-right: auto;
 }
 .project-list {
 	text-align: bottom;
@@ -94,3 +101,22 @@
   -webkit-mask-image: linear-gradient(to right, black 0%, transparent 70%, transparent 100%);
   mask-image: linear-gradient(to right, black 0%, transparent 70%, transparent 100%);
 }
+.project-button {
+	align-self: center;
+	margin-left: 1rem;
+	height: 100px;
+	width: 100px;
+	background: transparent;	
+	font-weight: 500;
+	font-family: "Manrope";
+	font-size: 32px;
+	color: #FFAAFF;
+	border: 2px solid transparent;
+	border-radius: 0%;
+	transition-property: all;
+}
+.project-button:hover {
+	border: 2px solid transparent;
+	text-shadow: #FFAAFF 0 0 5px;
+
+ }

@@ -1,5 +1,6 @@
 import ThreeScene from '../components/MainPage/ThreeScene.tsx'
 import ProjectsPage from '../components/MainPage/Projects/ProjectsPage.tsx'
+import ResumePage from '../components/MainPage/Resume/ResumePage.tsx'
 import { CameraProvider, useCameraContext } from '../context/cameraContext.tsx'
 import { ProjectProvider } from '../context/projectContext.tsx'
 import { AsciiProvider } from '../context/asciiContext.tsx'
@@ -9,6 +10,9 @@ function GetPageFromScene() {
 	const { scene } = useCameraContext();
 	if (scene == "Projects") {
 		return (<ProjectsPage />)
+	}
+	if (scene == "Resume") {
+		return (<ResumePage />)
 	}
 	return null
 		

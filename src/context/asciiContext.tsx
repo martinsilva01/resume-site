@@ -2,7 +2,7 @@ import { useState, useRef, useContext, createContext } from 'react'
 
 type AsciiContextType = {
 	ascii: boolean;
-	toggleAscii: () => void;
+	setAscii: (ascii: boolean) => void;
 }
 
 interface AsciiProviderProps {
@@ -13,11 +13,10 @@ const AsciiContext = createContext<AsciiContextType | null>(null);
 
 export function AsciiProvider  ({ children }: AsciiProviderProps) {
 	const [ascii, setAscii] = useState(false);
-	const toggleAscii = () => setAscii(prev => !prev);
 
 	const contextValue: AsciiContextType = {
 		ascii,
-		toggleAscii,
+		setAscii
 	}
 
 	return (

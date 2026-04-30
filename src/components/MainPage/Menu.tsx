@@ -50,30 +50,6 @@ function MenuItem({text, color, ...props}: MenuItemProps) {
 	const { ascii, toggleAscii } = useAsciiContext();
 	const { camera, setCameraLocation } = useCameraContext();
 
-	const locationMap = {
-	Main: 
-		{ position: new THREE.Vector3(0.1, 0, 3),
-			target:  new THREE.Vector3(0.1, 0, 0),
-			upVector: new THREE.Vector3(0, 1, 0)
-		},
-	Resume: 
-		{ position: new THREE.Vector3(-4,0,-2.5),
-			target:  new THREE.Vector3(-8, 0, -2.5),
-			upVector: new THREE.Vector3(0, 0, 1)
-		},
-	Projects: 
-		{ position: new THREE.Vector3(0.1,0,10),
-			target:  new THREE.Vector3(0.1,0,0),
-			upVector: new THREE.Vector3(0, 1, 0)
-
-		},
-	Github: 
-		{ position: new THREE.Vector3(0.1,0,3),
-			target:  new THREE.Vector3(0.1,0,0),
-			upVector: new THREE.Vector3(0, 1, 0)
-		},
-}
-
 	const texture = useMemo(() => createTextTexture(text), [text])
 	const ref = useRef<THREE.Group | null>(null)
 	const [hover, setHover] = useState(false);
@@ -97,11 +73,6 @@ function MenuItem({text, color, ...props}: MenuItemProps) {
 			}}
 			onClick={(e) => {
 				e.stopPropagation()
-				const distance = camera.position.distanceTo(locationMap[text].position);
-				if (!ascii && distance > .3) {
-					toggleAscii();
-				}
-
 				setCameraLocation(text);
 
 			}}
