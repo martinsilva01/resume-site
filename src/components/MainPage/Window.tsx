@@ -6,8 +6,11 @@ import { useFBO } from '@react-three/drei'
 import { OBJLoader, MTLLoader, } from 'three/addons'
 import AsciiMaterial from './ASCIIMaterial.tsx'
 import { useCameraContext } from '../../context/cameraContext.tsx'
+import { useProjectContext } from '../../context/projectContext.tsx'
 import { Select } from '@react-three/postprocessing'
 import { type ThreeElements } from '@react-three/fiber'
+import { type SceneName } from '../../context/cameraContext.tsx'
+import { type ProjectType } from '../../context/projectContext.tsx'
 extend({ AsciiMaterial })
 
 
@@ -54,7 +57,7 @@ function Heart() {
 	return <primitive ref={objRef} object={obj} materials={materials} scale={.01} />
 }
 
-function createMainGreetingTexture() {
+function createMainGreetingTexture(projects: ProjectType[], active: number, scene: SceneName) {
 	const SIZE = 1024;
 	const FONT_SIZE = 24;
 	const TEXT_START_POS = 24;
@@ -85,13 +88,18 @@ function createMainGreetingTexture() {
 
 	if (!context) return
 
-	
 	setInterval(() => {
-		cursor = (cursor == "█") ? " " : "█";
-		const textLines = [
-		...baseLines,
-		`martin:~/ -> ${cursor}`,
-		]
+		let textLines: string[] = []
+		if (scene == "Main") {
+			cursor = (cursor == "█") ? " " : "█";
+			textLines = [
+			...baseLines,
+			`martin:~/ -> ${cursor}`,
+			]
+		}
+		else if (scene == "Projects") {
+			textLines = projects[active].summary
+		}
 		context.clearRect(0, 0, canvas.width, canvas.height);
   	context.font = `${FONT_SIZE}px 'Roboto Mono'`;
   	context.textAlign = 'left';
@@ -144,14 +152,15 @@ export default function WindowGroup({...props}: ThreeElements['group']) {
 	const meshRef = useRef<THREE.Mesh<THREE.PlaneGeometry, THREE.Material | THREE.Material[]> | null>(null)
   const asciiMaterialRef = useRef<AsciiMaterial | null>(null)
 	const [portalState, setPortalState] = useState(false)
-	const texture = useMemo(() => createMainGreetingTexture(), []);
 	const targetMat = useMemo(() => new THREE.Matrix4(), []);
 	const targetQuat = useMemo(() => new THREE.Quaternion(), []);
 	const { scene, position, target, up } = useCameraContext();
+	const { projects, active } = useProjectContext();
 	const positionVector = useMemo(() => new THREE.Vector3(), [])
 	const targetVector = useMemo(() => new THREE.Vector3(), [])
 	const upVector = useMemo(() => new THREE.Vector3(), [])
 	const windowPositionVector = useMemo(() => new THREE.Vector3(), [])
+	const texture = useMemo(() => createMainGreetingTexture(projects, active, scene), [projects, active, scene]);
 
 	const windowPositions = { 
 		Main: [1, 0, .5],

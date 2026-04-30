@@ -1,9 +1,12 @@
 import { useProjectContext } from "../../../context/projectContext.tsx"
+import { useAsciiContext } from "../../../context/asciiContext.tsx"
+
 import '../../../styles/ProjectsPage.css'
 
 
 const Header = () => {
 const { projects, active, setActive } = useProjectContext();
+
 	return (
 		<div className="project-header">
 			<ul>

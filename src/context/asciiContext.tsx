@@ -1,4 +1,4 @@
-import { useState, useContext, createContext } from 'react'
+import { useState, useRef, useContext, createContext } from 'react'
 
 type AsciiContextType = {
 	ascii: boolean;
@@ -17,7 +17,7 @@ export function AsciiProvider  ({ children }: AsciiProviderProps) {
 
 	const contextValue: AsciiContextType = {
 		ascii,
-		toggleAscii
+		toggleAscii,
 	}
 
 	return (

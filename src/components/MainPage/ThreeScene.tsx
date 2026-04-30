@@ -15,9 +15,7 @@ import Image3D from './Projects/3DImage.tsx'
 
 export default function ThreeScene() {
 	return (
-		<AsciiProvider>
-			<SceneContent />
-		</AsciiProvider>
+		<SceneContent />
 	)
 }
 

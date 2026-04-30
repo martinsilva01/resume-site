@@ -6,10 +6,10 @@ type ProjectContextType = {
 	setActive: (index: number) => void
 }
 
-type ProjectType = {
+export type ProjectType = {
 	name: string
 	img: string
-	summary: string
+	summary: string[]
 }
 
 interface ProjectProviderProps {
@@ -25,12 +25,37 @@ export function ProjectProvider ({ children }: ProjectProviderProps) {
 		{
 			name: "YumNom AI",
 			img: "./yumnom.png",
-			summary: "yumnom"
+			summary: [
+				"",
+				" • Collaborated on a year-long project in order to develop a completed",
+			 	"	website, utilizing APIs,Google Firebase, Firestore and Authentication",
+				"functionality, and an AI agent for customer support and food ",
+				"recommendation activities.",
+				"",
+			 	" • Led and developed the entire backend, supporting real-time user",
+			 	"	activities, database logic, and secure API routing.",
+				"",
+ 				" • Implemented secure authentication flows with token-based session ",
+				"handling and role-based access controls."
+			]
 		}, 
 		{
 			name: "ArcGIS StoryMap",
 			img: "./storymap.png",	
-			summary: "arcgis"
+			summary: [
+				"",
+				" • Created interactive ArcGIS StoryMaps to visualize and communicate",
+				"geographical data with dynamic, web-based mapping.",
+				"",
+				"• Integrated third-party APIs into existing GIS platforms, expanding",
+				"functionality and improving user experience.",
+				"",
+				"• Designed and implemented spatial databases to store geospatial data",
+				"for efficient retrieval and analysis.",
+				"",
+				"• Collaborated in a 12-week internship program, presenting technical",
+				"deliverables to industry mentors."
+			]
 		}
 	];
 
