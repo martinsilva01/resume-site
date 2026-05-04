@@ -98,7 +98,7 @@ export default function Menu() {
 		<group ref={ref} position={[-.7, 0, 0]} rotation={[0, .75, 0]}>
 			<MenuItem text="Resume" image="hello" color="#FF88FF" position={[0, .5, 0]} />
 			<MenuItem text="Projects" image="hello" color="#FF88FF" position={[0, 0, 0]} />
-			<MenuItem text="Github" image="hello" color="#FF88FF" position={[0, -.5, 0]} />
+			<MenuItem text="Github" image="hello" color="#FF88FF" position={[0, -.5, 0]} onClick={(e)=>{ e.stopPropagation(); globalThis.open('https://www.github.com/martinsilva01')}}/>
 		</group>
 	</Select>
 )

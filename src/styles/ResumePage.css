@@ -5,11 +5,12 @@
 	left: 0;
 	height: 100%;
 	width: 100%;
-	animation: onLoad 1s forwards;
+	animation: onLoad 2.5s forwards;
 }
 
 .resumepage-overlay > * {
 	transition: all 0.3 ease-in;
+	font-family: "Manrope";
 }
 
 @keyframes onLoad {
@@ -26,11 +27,10 @@
 	.resume-header {
 		width: 100%;
 		display: flex;
-		justify-content: center;
+		justify-content: left;
 }
 
-.resume-header > :first-child {
-	margin-right: auto;
+.resume-header > :last-child {
 }
 
 .resume-button {
@@ -40,7 +40,6 @@
 	width: 100px;
 	background: transparent;	
 	font-weight: 500;
-	font-family: "Manrope";
 	font-size: 32px;
 	color: #FFAAFF;
 	border: 2px solid transparent;
@@ -51,4 +50,20 @@
 	border: 2px solid transparent;
 	text-shadow: #FFAAFF 0 0 5px;
 
+ }
+
+.resume-body {
+	text-align: left;
+	margin: 0 4rem;	
+	color: #FFAAFF;
+}
+
+ .resume-body > h2 {
+	font-weight: 800;
+	font-size: 4rem;
+
+ } 
+  .resume-body > p {
+	font-weight: 400;
+	font-size: 1.2rem;
  }

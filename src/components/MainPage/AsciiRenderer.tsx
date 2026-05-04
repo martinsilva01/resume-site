@@ -74,7 +74,7 @@ export function AsciiRenderer({
   // Take over render-loop (that is what the index is for)
   useFrame((state, delta) => {
 		if (!enabled) return
-		percentage.current = Math.min(1, percentage.current + delta)
+		percentage.current = Math.min(1, percentage.current + .02)
 		effect.domElement.style.opacity = (1 - (Math.abs(.5 - percentage.current) / .5))
     effect.render(scene, camera)
   }, renderIndex)
