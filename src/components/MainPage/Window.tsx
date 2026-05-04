@@ -3,7 +3,7 @@ import { useRef, useMemo, useState } from 'react'
 import { TextureLoader } from 'three'
 import { useLoader, useFrame, extend, createPortal } from '@react-three/fiber'
 import { useFBO } from '@react-three/drei'
-import { OBJLoader, MTLLoader, } from 'three/addons'
+import { OBJLoader, MTLLoader } from 'three/addons'
 import AsciiMaterial from './ASCIIMaterial.tsx'
 import { useCameraContext } from '../../context/cameraContext.tsx'
 import { useProjectContext } from '../../context/projectContext.tsx'
@@ -12,8 +12,6 @@ import { type ThreeElements } from '@react-three/fiber'
 import { type SceneName } from '../../context/cameraContext.tsx'
 import { type ProjectType } from '../../context/projectContext.tsx'
 extend({ AsciiMaterial })
-
-
 
 function Window() {
 	const map = useLoader(TextureLoader, "./window.png")
@@ -48,7 +46,7 @@ function Heart() {
 		materials.preload()
 		loader.setMaterials(materials)
 	})
-	useFrame(( state, delta ) => {
+	useFrame(( _, delta ) => {
 		if (objRef.current) {
 			objRef.current.rotation.y += 2 * delta
 		}
@@ -135,7 +133,6 @@ function usePortal(inUse: boolean, meshRef: React.RefObject<THREE.Mesh<THREE.Pla
 		const boundingBoxSize = new THREE.Vector3();
 		meshRef.current.geometry.boundingBox?.getSize(boundingBoxSize)
 		asciiMaterialRef.current.uniforms.uTexture.value = windowSceneRender.texture
-		meshRef.current.material.map = windowSceneRender.texture
 		//hacky way to set bloom on
 		asciiMaterialRef.current.uniforms.uColor.value.set(4, 0, 4);
     gl.render(windowScene, windowCamera)

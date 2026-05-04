@@ -1,4 +1,4 @@
-import { useState, useRef, useContext, createContext } from 'react'
+import { useState, useContext, createContext } from 'react'
 
 type AsciiContextType = {
 	ascii: boolean;

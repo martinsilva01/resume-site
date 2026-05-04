@@ -3,7 +3,6 @@ import { useFrame } from '@react-three/fiber'
 import { useRef, useState, useMemo } from 'react'
 import { RoundedBoxGeometry } from '@react-three/drei'
 import { type ThreeElements } from '@react-three/fiber'
-import { useAsciiContext } from '../../context/asciiContext.tsx'
 import { useCameraContext } from '../../context/cameraContext.tsx'
 import { Select } from '@react-three/postprocessing'
 import type { SceneName } from '../../context/cameraContext.tsx'
@@ -47,8 +46,7 @@ function createTextTexture(text: string) {
   return texture;
 }
 function MenuItem({text, color, ...props}: MenuItemProps) {
-	const { ascii, toggleAscii } = useAsciiContext();
-	const { camera, setCameraLocation } = useCameraContext();
+	const { setCameraLocation } = useCameraContext();
 
 	const texture = useMemo(() => createTextTexture(text), [text])
 	const ref = useRef<THREE.Group | null>(null)
@@ -84,7 +82,7 @@ function MenuItem({text, color, ...props}: MenuItemProps) {
 			<mesh 
 
 			scale={.25}>
-				<meshPhysicalMaterial metalness={1.2} clearcoat roughness={.2} ior={0.9} envMapIntensity={.9} transmission={.95} transparent side={THREE.DoubleSide} color={color} opacity={.7} reflectivity={.2} refractionRatio={.75} depthWrite={false} />
+				<meshPhysicalMaterial metalness={1.2} roughness={.2} ior={0.9} envMapIntensity={.9} transmission={.95} transparent side={THREE.DoubleSide} color={color} opacity={.7} reflectivity={.2} depthWrite={false} />
 				<RoundedBoxGeometry args={[5, 1, .5]} bevelSegments={1} />
 			</mesh>
 		</group>

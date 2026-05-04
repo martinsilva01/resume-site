@@ -1,11 +1,8 @@
-import { useRef } from 'react'
-import { useFrame, Canvas } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import * as THREE from 'three'
-import { useAsciiContext, AsciiProvider } from '../../context/asciiContext.tsx'
-import { useCameraContext, CameraProvider } from  '../../context/cameraContext.tsx'
+import { useAsciiContext } from '../../context/asciiContext.tsx'
 import { useProjectContext } from  '../../context/projectContext.tsx'
-import { Selection, Select, EffectComposer, Bloom, SelectiveBloom, DepthOfField} from '@react-three/postprocessing'
-import { OrbitControls } from '@react-three/drei'
+import { EffectComposer, Bloom, DepthOfField} from '@react-three/postprocessing'
 import CameraController from '../CameraController.tsx'
 import { AsciiRenderer } from './AsciiRenderer.tsx'
 import WindowGroup from './Window.tsx'
@@ -21,11 +18,10 @@ export default function ThreeScene() {
 
 function SceneContent() {
 	const { ascii } = useAsciiContext();
-	const { camera } = useCameraContext();
 	const { projects, active } = useProjectContext();
 
 	return (
-		<Canvas camera={camera}>
+		<Canvas> 
 			<CameraController />
 		 	<directionalLight position={[1,1,-1]} intensity={1} />
 		 	<directionalLight position={[-1,-1,1]} intensity={1} />

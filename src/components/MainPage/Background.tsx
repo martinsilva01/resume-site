@@ -81,7 +81,7 @@ function Cylinder({color, scale, ...props}: CylinderProps) {
 
 	return (
 			<mesh scale={scale} {...props}>
-				<meshPhysicalMaterial metalness={1.2} clearcoat roughness={.2} ior={0.9} envMapIntensity={.9} transmission={.95} transparent side={THREE.DoubleSide} color={color} opacity={.7} reflectivity={.2} refractionRatio={.75} />
+				<meshPhysicalMaterial metalness={1.2} clearcoat={1} roughness={.2} ior={0.9} envMapIntensity={.9} transmission={.95} transparent side={THREE.DoubleSide} color={color} opacity={.7} reflectivity={.2} />
 				<cylinderGeometry args={[1, 1, 10, 6]}/> 
 			</mesh>
 	)
@@ -90,13 +90,12 @@ function CylinderDeco({ cylinderCount, radius, scale, color, cylinderSpeed, deco
   const ref = useRef<THREE.Group | null>(null)
 	const offset = (2 * Math.PI / cylinderCount)
 
-  useFrame(( state, delta ) => {
+  useFrame(( _, delta ) => {
 		if (!ref.current) return
 		const deco_t = decoSpeed * delta
 		const cylinder_t = cylinderSpeed * delta
-		const clock = state.clock
 		ref.current.rotation.z += deco_t
-		ref.current.children.forEach((child, i) => {
+		ref.current.children.forEach((child) => {
 				child.rotateY(cylinder_t)
 			})
   })

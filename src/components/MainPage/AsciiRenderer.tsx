@@ -43,14 +43,15 @@ export function AsciiRenderer({
     effect.domElement.style.left = '0px'
     effect.domElement.style.pointerEvents = 'none'
     return effect
-  }, [characters, invert, color, resolution ])
+  }, [gl, characters, invert, color, resolution ])
 
   // Styling
   React.useLayoutEffect(() => {
-    effect.domElement.style.color = fgColor
-    effect.domElement.style.backgroundColor = bgColor
-
-  }, [fgColor, bgColor])
+		Object.assign(effect.domElement.style, {
+			color: fgColor,
+			backgroundColor: bgColor
+		})
+  }, [fgColor, bgColor, effect])
 
   // Append on mount, remove on unmount
   React.useEffect(() => {
@@ -61,7 +62,6 @@ export function AsciiRenderer({
   }, [effect, gl])
 
 	React.useEffect(() => {
-	  effect.domElement.style.opacity = enabled ? '1' : '0'
 		if (!enabled)
 			percentage.current = 0
 	}, [enabled, gl, effect])
@@ -72,10 +72,12 @@ export function AsciiRenderer({
   }, [effect, size])
 
   // Take over render-loop (that is what the index is for)
-  useFrame((state, delta) => {
+  useFrame(() => {
 		if (!enabled) return
 		percentage.current = Math.min(1, percentage.current + .02)
-		effect.domElement.style.opacity = (1 - (Math.abs(.5 - percentage.current) / .5))
+		Object.assign(effect.domElement.style, {
+ 			opacity: `${1 - (Math.abs(.5 - percentage.current) / .5)}`
+		})
     effect.render(scene, camera)
   }, renderIndex)
 

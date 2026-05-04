@@ -1,10 +1,7 @@
-import { useState, useEffect, useContext, createContext } from 'react'
-import { useMemo } from 'react'
-import * as THREE from 'three'
+import { useState, useContext, createContext } from 'react'
 
 type CameraContextType = {
 	scene: SceneName
-	camera: THREE.Camera
 	position: number[]
 	target: number[]
 	up: number[]
@@ -48,12 +45,6 @@ export function CameraProvider ({ children }: CameraProviderProps) {
 	const [position, setPosition] = useState(locationMap.Main.position);
 	const [target, setTarget] = useState(locationMap.Main.target);
 	const [up, setUp] = useState(locationMap.Main.up);
-	const camera = useMemo(() => {
-		const cam = new THREE.PerspectiveCamera(40)
-		return cam;
-	}, []);
-	
-
 
 	const setCameraLocation = (sceneName: SceneName) => {
 		if (locationMap[sceneName]) {
@@ -69,7 +60,6 @@ export function CameraProvider ({ children }: CameraProviderProps) {
 	
 	const contextValue: CameraContextType = {
 		scene,
-		camera,
 		position,
 		target,
 		up,

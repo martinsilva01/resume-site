@@ -1,7 +1,7 @@
 import * as THREE from 'three'
-import { useRef, useEffect, useMemo, useState } from 'react'
+import { useRef, useMemo } from 'react'
 import { TextureLoader } from 'three'
-import { useLoader, useFrame, extend, createPortal } from '@react-three/fiber'
+import { useLoader, useFrame, extend } from '@react-three/fiber'
 import AsciiMaterial from '../ASCIIMaterial.tsx'
 import { type ThreeElements } from '@react-three/fiber'
 import { useCameraContext } from '../../../context/cameraContext.tsx'
@@ -17,7 +17,7 @@ export default function Image3D({path, ...props}: Image3DProps) {
 	const { scene, position } = useCameraContext();
 	const positionVector = useMemo(() => new THREE.Vector3(),[]);
 
-	useFrame((state, delta) => {
+	useFrame((state) => {
 		const clock = state.clock
 		if (!meshRef.current) return
 		meshRef.current.position.z = 3 + .01 * Math.sin(clock.elapsedTime * 2) //hardcoded
