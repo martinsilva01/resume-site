@@ -12,7 +12,7 @@ export default function CameraController() {
 	const positionVector = useMemo(() => new THREE.Vector3(), [])
 	const targetVector = useMemo(() => new THREE.Vector3(), [])
 	const upVector = useMemo(() => new THREE.Vector3(), [])
-	const camera = useMemo(() => new THREE.PerspectiveCamera(40), [])
+	const camera = useMemo(() => new THREE.PerspectiveCamera(40, globalThis.innerWidth / globalThis.innerHeight), [])
   const set = useThree((s) => s.set)
 
   useEffect(() => {
