@@ -77,7 +77,6 @@ export function AsciiRenderer({
   // Take over render-loop (that is what the index is for)
   useFrame(() => {
 		if (!enabled) return
-		console.log(percentage.current)
 		percentage.current = Math.min(1, percentage.current + .02)
 		Object.assign(effect.domElement.style, {
  			opacity: `${1 - (Math.abs(.5 - percentage.current) / .5)}`
