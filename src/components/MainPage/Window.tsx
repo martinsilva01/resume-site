@@ -19,7 +19,7 @@ function Window() {
 		<group>
 			<mesh position={[0,.1,0]}>
 				<planeGeometry args={[1,1]} />
-				<meshBasicMaterial map={map} color={[5,5,5]}/>
+				<meshBasicMaterial map={map} color={[4,0,4]}/>
 			</mesh>		
 			<mesh position={[0,.05,-.03]}>
 				<boxGeometry args={[1,1.1,0.05]} />
@@ -199,7 +199,7 @@ export default function WindowGroup({...props}: ThreeElements['group']) {
 					{portalState ? (
 						<asciiMaterial ref={asciiMaterialRef} />
 					) : (
-						<meshBasicMaterial color={[3.9, 3.9, 3.9]} map={texture} />
+						<meshBasicMaterial color={[4, 0, 4]} map={texture} />
 					)}
 				{usePortal(portalState, meshRef, asciiMaterialRef)}
 				</mesh>

@@ -31,7 +31,7 @@ export default function Image3D({path, ...props}: Image3DProps) {
 			<Select enabled={false}>
 				<mesh ref={meshRef} scale={.125} {...props} >
 					<planeGeometry  args={[16,9] } />
-					<meshBasicMaterial map={map} color={[1,1,1]}/>
+					<meshBasicMaterial map={map} color={[.99,.99,.99]}/>
 				</mesh>		
 			</Select>
 	)

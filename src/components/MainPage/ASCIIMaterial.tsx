@@ -157,7 +157,7 @@ class AsciiMaterial extends ShaderMaterial {
     }
 
     context.clearRect(0, 0, SIZE, SIZE);
-		context.font = `${fontSize}px "monospace"`;
+		context.font = `${fontSize}px 'Roboto Mono'`;
     context.textAlign = "center";
     context.textBaseline = "middle";
     context.fillStyle = "#fff";

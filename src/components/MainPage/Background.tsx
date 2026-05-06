@@ -8,12 +8,12 @@ type OrbitProps = {
 	sphereCount: number
 	radius: number
 	scale: number
-	color: string
+	color: string | [r: number, g: number, b:number]
 	speed: number
 } & ThreeElements['group']
 
 type SphereProps = {
-	color: string
+	color: string | [r: number, g: number, b:number]
 	scale: number
 } & ThreeElements['mesh'] 
 
@@ -53,7 +53,7 @@ function Orbit({ sphereCount, radius, scale, color, speed, ...props }: OrbitProp
 		<Select>
 			<group ref={ref}  {...props}>
 				{Array.from({length: sphereCount},(_, i) => (
-					<Trail key={i} width={1} length={3} color={color} attenuation={(t) => t * t}>
+					<Trail key={i} width={1} length={3} color={new THREE.Color(...color)} attenuation={(t) => t * t}>
 						<Sphere position={[radius * Math.cos(i * offset), radius * Math.sin(i * offset), 0]} scale={scale} color={color}/>		
 					</Trail>
 				))}			
@@ -114,7 +114,7 @@ export default function Background() {
 	return (
 		<group>
 			<CylinderDeco cylinderCount={8} radius={2.5 * (.5)} scale={2.5 * (.035)} color="#FF88FF" cylinderSpeed={1} decoSpeed={.1} position={[-1.5, 0, -2]} />
-			<Orbit sphereCount={8} radius={.5} scale={.02} color="#FF88FF" speed={1} position={[-1.5, 0, -2]} />
+			<Orbit sphereCount={8} radius={.5} scale={.02} color={[3, 0.5,3]} speed={1} position={[-1.5, 0, -2]} />
 		</group>
 	)
 }

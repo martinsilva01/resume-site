@@ -23,16 +23,16 @@ function SceneContent() {
 	return (
 		<Canvas> 
 			<CameraController />
-		 	<directionalLight position={[1,10,-10]} intensity={1} />
-		 	<directionalLight position={[-1,-1,1]} intensity={1} />
-				<EffectComposer>
-					<Bloom luminanceThreshold={1} intensity={.1} radius={.4} />
-					<DepthOfField focusDistance={2.5} focalLength={3} bokehScale={1} />
-				</EffectComposer>
-				<Menu />
-				<WindowGroup position={[1, 0, 0]} />
-				<Background />
-				<Image3D path={projects[active].img} up={[0, 0, -1]} position={[-0.8, -1, 3]} rotation={new THREE.Euler(0, .5, 0)} />
+		 	<directionalLight position={[15,8,20]} intensity={.5} />
+		 	<directionalLight position={[-10,20,-2]} intensity={.5} />
+			<EffectComposer>
+				<Bloom luminanceThreshold={.99} intensity={.1} />
+				<DepthOfField />
+			</EffectComposer>
+			<Menu />
+			<WindowGroup position={[1, 0, .5]} />
+			<Background />
+			<Image3D path={projects[active].img} up={[0, 0, -1]} position={[-0.8, -1, 3]} rotation={new THREE.Euler(0, .5, 0)} />
 			<AsciiRenderer enabled={ascii} invert={false} fgColor="#FF00FF" bgColor="#220022" resolution={.1666} /> 
 		</Canvas>
 	)

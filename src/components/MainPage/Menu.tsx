@@ -76,7 +76,7 @@ function MenuItem({text, color, ...props}: MenuItemProps) {
 			}}
 			{...props}>
 			<mesh scale={.25}>
-				<meshBasicMaterial transparent map={texture} color={[4, 4, 4]} side={THREE.DoubleSide} />
+				<meshBasicMaterial transparent map={texture} color={[1, 0, 1]} side={THREE.DoubleSide} />
 				<planeGeometry args={[5, 1]}/>
 			</mesh>
 			<mesh 
