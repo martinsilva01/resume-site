@@ -23,11 +23,11 @@ function SceneContent() {
 	return (
 		<Canvas> 
 			<CameraController />
-		 	<directionalLight position={[1,1,-1]} intensity={1} />
+		 	<directionalLight position={[1,10,-10]} intensity={1} />
 		 	<directionalLight position={[-1,-1,1]} intensity={1} />
 				<EffectComposer>
 					<Bloom luminanceThreshold={1} intensity={.1} radius={.4} />
-					<DepthOfField focusDistance={2.5} focalLength={3} bokehScale={3} />
+					<DepthOfField focusDistance={2.5} focalLength={3} bokehScale={1} />
 				</EffectComposer>
 				<Menu />
 				<WindowGroup position={[1, 0, 0]} />

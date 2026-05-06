@@ -80,10 +80,9 @@ function MenuItem({text, color, ...props}: MenuItemProps) {
 				<planeGeometry args={[5, 1]}/>
 			</mesh>
 			<mesh 
-
 			scale={.25}>
 				<meshPhysicalMaterial metalness={1.2} roughness={.2} ior={0.9} envMapIntensity={.9} transmission={.95} transparent side={THREE.DoubleSide} color={color} opacity={.7} reflectivity={.2} depthWrite={false} />
-				<RoundedBoxGeometry args={[5, 1, .5]} bevelSegments={1} />
+				<RoundedBoxGeometry args={[5, 1, .5]} smoothness={1} bevelSegments={2} />
 			</mesh>
 		</group>
 	)
