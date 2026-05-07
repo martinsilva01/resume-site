@@ -6,12 +6,12 @@ import '../../../styles/ProjectsPage.css'
 
 
 const Header = () => {
-	const { setAscii } = useAsciiContext();
+	const { ascii, setAscii } = useAsciiContext();
 	const { projects, active, setActive } = useProjectContext();
 	const { setCameraLocation } = useCameraContext();
 	const handleClick = (i: number) => {
 		if (active == i) return;
-		setAscii(true);
+		if ( !ascii ) setAscii(true);
 		setActive(i);
 		setTimeout(() => {
 			setAscii(false);

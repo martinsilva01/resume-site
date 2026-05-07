@@ -6,6 +6,7 @@ import { type ThreeElements } from '@react-three/fiber'
 import { useCameraContext } from '../../context/cameraContext.tsx'
 import { Select } from '@react-three/postprocessing'
 import type { SceneName } from '../../context/cameraContext.tsx'
+import { useAsciiContext } from '../../context/asciiContext.tsx'
 
 type MenuItemProps = {
 	text: SceneName 
@@ -60,6 +61,7 @@ function MenuItem({text, color, ...props}: MenuItemProps) {
 	}, [text]);
 
 	const { setCameraLocation } = useCameraContext();
+	const { ascii, setAscii } = useAsciiContext();
 	const ref = useRef<THREE.Group | null>(null)
 	const [hover, setHover] = useState(false);
 	useFrame(() => {
@@ -83,6 +85,7 @@ function MenuItem({text, color, ...props}: MenuItemProps) {
 			onClick={(e) => {
 				e.stopPropagation()
 				setCameraLocation(text);
+				if (!ascii) setAscii(true);
 
 			}}
 			{...props}>

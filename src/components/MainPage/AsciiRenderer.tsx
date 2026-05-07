@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { AsciiEffect } from 'three-stdlib'
+import { useAsciiContext } from '../../context/asciiContext.tsx'
 
 export type AsciiRendererProps = {
 	/** enabled, default: true */
@@ -34,6 +35,7 @@ export function AsciiRenderer({
 }: AsciiRendererProps) {
   // Reactive state
   const { size, gl, scene, camera } = useThree()
+	const { setAscii } = useAsciiContext();
 	const percentage = React.useRef(0);
   // Create effect
   const effect = React.useMemo(() => {
@@ -62,11 +64,12 @@ export function AsciiRenderer({
   }, [effect, gl])
 
 	React.useEffect(() => {
-		if (!enabled)
+		if (!enabled) {
 			percentage.current = 0
 			Object.assign(effect.domElement.style, {
  				opacity: "0"
 			})
+		}
 	}, [enabled, gl, effect])
 
   // Set size
@@ -75,12 +78,13 @@ export function AsciiRenderer({
   }, [effect, size])
 
   // Take over render-loop (that is what the index is for)
-  useFrame(() => {
+  useFrame((_, delta) => {
 		if (!enabled) return
-		percentage.current = Math.min(1, percentage.current + .02)
+		percentage.current = Math.min(1, percentage.current + 1 * delta)
 		Object.assign(effect.domElement.style, {
  			opacity: `${1 - (Math.abs(.5 - percentage.current) / .5)}`
 		})
+		if (percentage.current == 1) setAscii(false);
     effect.render(scene, camera)
   }, renderIndex)
 

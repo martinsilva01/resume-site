@@ -19,22 +19,19 @@ export default function CameraController() {
     set({ camera })
   }, [camera, set])
 
-	useFrame(() => {
+	useFrame(( _, delta ) => {
 		positionVector.fromArray(position)
 		targetVector.fromArray(target)
 		upVector.fromArray(up)
 		targetMat.lookAt(positionVector, targetVector, upVector);
 		targetQuat.setFromRotationMatrix(targetMat);
 
-		camera.quaternion.slerp(targetQuat, 0.05);
-		camera.position.lerp(positionVector, 0.05);
+		camera.quaternion.slerp(targetQuat, 4 * delta);
+		camera.position.lerp(positionVector, 4 * delta);
 
 		const distance = camera.position.distanceTo(positionVector);
 		if (!ascii && distance > .3) {
 			setAscii(true);
-			setTimeout(() => {
-				setAscii(false);
-			}, 1200);
 		}
 	})
 	return null
