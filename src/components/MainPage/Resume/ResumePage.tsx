@@ -24,7 +24,7 @@ const Body = () => {
 					to apply my learning and rigorous study to projects which showcase my strengths. Additionally, I had the 
 					opportunity to learn through an internship with the California Consortium for Public Health Informatics & Technology. 
 			</p>
-			<a href="./MartinSilva_Jan2026.pdf" download>Download Resume PDF.</a>
+			<a href="./MartinSilva_May2026.pdf" download>Download Resume PDF.</a>
 		</div>	
 	)
 }
