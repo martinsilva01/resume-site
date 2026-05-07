@@ -164,7 +164,7 @@ export default function WindowGroup({...props}: ThreeElements['group']) {
 		Projects: [1, -.5, 0],
 	}
 
-	useFrame((state) => {
+	useFrame((state, delta) => {
 		const clock = state.clock
 		if (!meshRef.current || !groupRef.current) return
 		groupRef.current.translateY(.003 * Math.sin(clock.elapsedTime * 2))
@@ -178,11 +178,11 @@ export default function WindowGroup({...props}: ThreeElements['group']) {
 			targetMat.lookAt(positionVector, targetVector, upVector);
 			targetQuat.setFromRotationMatrix(targetMat);
 
-			groupRef.current.quaternion.slerp(targetQuat, 0.05);
+			groupRef.current.quaternion.slerp(targetQuat, 4 * delta);
 
 			{/*@ts-expect-error | not all SceneName values appear in windowPositions; If the current scene doesn't match, this codeblock won't run.*/}
   		const newPos = windowPositionVector.fromArray(windowPositions[scene]).add(targetVector);
-  		groupRef.current.position.lerp(newPos, 0.05);
+  		groupRef.current.position.lerp(newPos, 4 * delta);
  		} 
 	})
 
