@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
-import { useRef, useState, useMemo } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { RoundedBoxGeometry } from '@react-three/drei'
 import { type ThreeElements } from '@react-three/fiber'
 import { useCameraContext } from '../../context/cameraContext.tsx'
@@ -13,12 +13,16 @@ type MenuItemProps = {
 	color: string
 } & ThreeElements['group']
 
-function createTextTexture(text: string) {
+async function createTextTexture(text: string) {
 	const HEIGHT = 256;
 	const WIDTH = 1280;
 	const FONT_SIZE = 128;
 	const TEXT_START_POS = 128;
 	const LEFT_PADDING = 640;
+
+  await document.fonts.load(`${FONT_SIZE}px Manrope`);
+  await document.fonts.ready;
+
   const canvas = document.createElement("canvas");
   canvas.width = WIDTH;
 	canvas.height = HEIGHT;
@@ -36,7 +40,7 @@ function createTextTexture(text: string) {
 	if (!context) return
 
 	context.clearRect(0, 0, canvas.width, canvas.height);
- 	context.font = `200 ${FONT_SIZE}px 'Manrope'`;
+	context.font = `200 ${FONT_SIZE}px 'Manrope'`;
  	context.textAlign = 'center';
  	context.textBaseline = 'middle';
  	context.fillStyle = 'rgba(255, 0, 255, 1)';
@@ -46,9 +50,16 @@ function createTextTexture(text: string) {
   return texture;
 }
 function MenuItem({text, color, ...props}: MenuItemProps) {
-	const { setCameraLocation } = useCameraContext();
+	const [texture, setTexture] = useState<THREE.Texture | null>(null)
+	useEffect(() => { 
+		createTextTexture(text).then((tex) => {
+		if (tex) {
+			setTexture(tex);
+		}
+	});	
+	}, [text]);
 
-	const texture = useMemo(() => createTextTexture(text), [text])
+	const { setCameraLocation } = useCameraContext();
 	const ref = useRef<THREE.Group | null>(null)
 	const [hover, setHover] = useState(false);
 	useFrame(() => {
@@ -76,7 +87,7 @@ function MenuItem({text, color, ...props}: MenuItemProps) {
 			}}
 			{...props}>
 			<mesh scale={.25}>
-				<meshBasicMaterial transparent map={texture} color={[1, 0, 1]} side={THREE.DoubleSide} />
+				<meshBasicMaterial transparent map={texture} opacity={texture ? 1 : 0} color={[1, 0, 1]} side={THREE.DoubleSide} />
 				<planeGeometry args={[5, 1]}/>
 			</mesh>
 			<mesh 
